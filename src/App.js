@@ -21,6 +21,8 @@ function App() {
   useEffect(() => {
     setLoading(true);
     getImages();
+
+    // axios.get('/data', {baseURL: 'https://arcane-refuge-54765.herokuapp.com', params: page })
   }, [page]);
 
   const handleSort = useCallback(() => {
