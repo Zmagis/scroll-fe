@@ -28,7 +28,9 @@ function App() {
       .then((data) => {
         console.log(data);
         console.log(data.text);
+        console.log(JSON.parse(data.text).photos);
         const json = JSON.parse(data.text).photos.photo;
+        console.log(json);
         const newA = [...data, ...json];
         setData([...removedDuplicates(newA)]);
         setLoading(false);
