@@ -28,6 +28,10 @@ function App() {
       .then((data) => {
         console.log(data);
         console.log(data.text);
+        const json = JSON.parse(data.data.text).photos.photo;
+        const newA = [...data, ...json];
+        setData([...removedDuplicates(newA)]);
+        setLoading(false);
       });
   }, [page]);
 
