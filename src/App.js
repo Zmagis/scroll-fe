@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
 
 import ImageBox from './imageBox/ImageBox';
 import { removedDuplicates } from './utils';
@@ -10,28 +9,13 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [isSorted, setIsSorted] = useState(false);
 
-  const getImages = async () => {
-    const res = await axios.get('/data', { params: page });
-    const json = JSON.parse(res.data.text).photos.photo;
-    const newA = [...data, ...json];
-    setData([...removedDuplicates(newA)]);
-    setLoading(false);
-  };
-
   useEffect(() => {
     setLoading(true);
-    // getImages();
 
-    // axios.get('/data', {baseURL: 'https://arcane-refuge-54765.herokuapp.com', params: page })
-    // fetch('https://arcane-refuge-54765.herokuapp.com/data')
-    fetch('https://arcane-refuge-54765.herokuapp.com/data')
+    fetch('https://arcane-refuge-54765.herokuapp.com/data', { params: page })
       .then((response) => response.json())
       .then((d) => {
-        console.log(d);
-        console.log(d.text);
-        console.log(JSON.parse(d.text).photos.photo);
         const json = JSON.parse(d.text).photos.photo;
-        console.log(json);
         const newA = [...data, ...json];
         setData([...removedDuplicates(newA)]);
         setLoading(false);
