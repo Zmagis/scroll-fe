@@ -25,7 +25,10 @@ function App() {
     // axios.get('/data', {baseURL: 'https://arcane-refuge-54765.herokuapp.com', params: page })
     fetch('https://arcane-refuge-54765.herokuapp.com/data')
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        console.log(data.text);
+      });
   }, [page]);
 
   const handleSort = useCallback(() => {
