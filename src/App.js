@@ -23,13 +23,14 @@ function App() {
     // getImages();
 
     // axios.get('/data', {baseURL: 'https://arcane-refuge-54765.herokuapp.com', params: page })
+    // fetch('https://arcane-refuge-54765.herokuapp.com/data')
     fetch('https://arcane-refuge-54765.herokuapp.com/data')
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        console.log(data.text);
-        console.log(JSON.parse(data.text).photos);
-        const json = JSON.parse(data.text).photos.photo;
+      .then((d) => {
+        console.log(d);
+        console.log(d.text);
+        console.log(JSON.parse(d.text).photos.photo);
+        const json = JSON.parse(d.text).photos.photo;
         console.log(json);
         const newA = [...data, ...json];
         setData([...removedDuplicates(newA)]);
