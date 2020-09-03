@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    getImages();
+    // getImages();
 
     // axios.get('/data', {baseURL: 'https://arcane-refuge-54765.herokuapp.com', params: page })
     fetch('https://arcane-refuge-54765.herokuapp.com/data')
