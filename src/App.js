@@ -4,19 +4,23 @@ import axios from 'axios';
 import ImageBox from './imageBox/ImageBox';
 import { removedDuplicates } from './utils';
 
+const url =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://arcane-refuge-54765.herokuapp.com';
+
 function App() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [isSorted, setIsSorted] = useState(false);
-  console.log(page);
+  // console.log(page);
+  // console.log(url);
 
   const getImages = async () => {
     const res = await axios.get('/data', {
       params: page,
-      baseURL:
-        'http://localhost:5000' ||
-        'https://arcane-refuge-54765.herokuapp.com/data',
+      baseURL: url,
     });
     const json = JSON.parse(res.data.text).photos.photo;
     const newA = [...data, ...json];
