@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import axios from 'axios';
 
 import ImageBox from './imageBox/ImageBox';
 import { removedDuplicates } from './utils';
@@ -8,18 +9,33 @@ function App() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [isSorted, setIsSorted] = useState(false);
+  console.log(page);
+
+  const getImages = async () => {
+    const res = await axios.get('/data', {
+      params: page,
+      baseURL:
+        'http://localhost:5000' ||
+        'https://arcane-refuge-54765.herokuapp.com/data',
+    });
+    const json = JSON.parse(res.data.text).photos.photo;
+    const newA = [...data, ...json];
+    setData([...removedDuplicates(newA)]);
+    setLoading(false);
+  };
 
   useEffect(() => {
     setLoading(true);
-
-    fetch('https://arcane-refuge-54765.herokuapp.com/data', { params: page })
-      .then((response) => response.json())
-      .then((d) => {
-        const json = JSON.parse(d.text).photos.photo;
-        const newA = [...data, ...json];
-        setData([...removedDuplicates(newA)]);
-        setLoading(false);
-      });
+    getImages();
+    // fetch('https://arcane-refuge-54765.herokuapp.com/data', { params: page })
+    // fetch('http://localhost:5000/data', { params: page })
+    //   .then((response) => response.json())
+    //   .then((d) => {
+    //     const json = JSON.parse(d.text).photos.photo;
+    //     const newA = [...data, ...json];
+    //     setData([...removedDuplicates(newA)]);
+    //     setLoading(false);
+    //   });
   }, [page]);
 
   const handleSort = useCallback(() => {
